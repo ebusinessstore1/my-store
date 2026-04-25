@@ -1,1 +1,1 @@
-# my-ali-store
+# my-store
