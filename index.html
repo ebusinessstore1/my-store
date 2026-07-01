@@ -3,131 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My AliExpress Deals Store</title>
+    <title>Hybrid Store – Best Deals</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: #f5f5f5;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
         }
-        header {
-            background: #ff6a00;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .product-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-        .product-card {
+
+        /* Sticky header (Shopify style) */
+        .sticky-header {
+            position: sticky;
+            top: 0;
             background: white;
-            border-radius: 12px;
-            width: 250px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.2s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            z-index: 100;
         }
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-        .product-card img {
-            width: 100%;
-            border-radius: 8px;
-            height: auto;
-        }
-        .product-title {
-            font-size: 16px;
+        .logo {
+            font-size: 26px;
             font-weight: bold;
-            margin: 10px 0;
+            background: linear-gradient(135deg, #ff6a00, #ee0979);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
             color: #333;
+            font-weight: 500;
         }
-        .price {
-            font-size: 20px;
-            color: #ff6a00;
-            margin: 10px 0;
+        .search-bar input {
+            padding: 8px 12px;
+            border-radius: 24px;
+            border: 1px solid #ddd;
+            width: 220px;
         }
-        .buy-btn {
+
+        /* Hero banner (Shopify style) */
+        .hero {
+            background: linear-gradient(120deg, #ffecd2 0%, #fcb69f 100%);
+            text-align: center;
+            padding: 60px 20px;
+            margin: 20px;
+            border-radius: 32px;
+        }
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+        .hero button {
             background: #ff6a00;
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 25px;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-size: 18px;
+            margin-top: 15px;
             cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 5px;
         }
-        .buy-btn:hover {
-            background: #e65c00;
+
+        /* Product grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        /* Product card – combines all styles */
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            padding: 15px;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+        }
+        /* Hover zoom on image (Shopify) */
+        .product-img {
+            width: 100%;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover .product-img {
+            transform: scale(1.03);
+        }
+        /* Discount badge (AliExpress) */
+        .discount-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #ff3b30;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 2;
+        }
+        /* Best seller badge (Amazon) */
+        .bestseller {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #f5a623;
+            color: black;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 12px 0 6px;
+        }
+        .price {
+            font-size: 22px;
+            color: #ff6a00;
+            font-weight: bold;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: #aaa;
+            font-size: 14px;
+            margin-left: 8px;
+        }
+        /* Star rating (Amazon style) */
+        .stars {
+            color: #ffb400;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        /* Heart button (Etsy style) */
+        .wishlist-heart {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background: white;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            font-size: 18px;
+            transition: 0.1s;
+        }
+        .wishlist-heart:hover {
+            color: red;
+        }
+        .buy-btn {
+            display: inline-block;
+            background: #ff6a00;
+            color: white;
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
         }
         footer {
-            text-align: center;
-            padding: 20px;
-            background: #333;
+            background: #1e1e2f;
             color: white;
-            margin-top: 30px;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+        @media (max-width: 700px) {
+            .sticky-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>🔥 Best AliExpress Deals 🔥</h1>
-    <p>Shop top products with exclusive discounts – I earn a small commission at no extra cost to you.</p>
-</header>
+<div class="sticky-header">
+    <div class="logo">✨ HybridStore</div>
+    <div class="search-bar">
+        <input type="text" placeholder="Search products...">
+    </div>
+    <div class="nav-links">
+        <a href="#">Deals</a>
+        <a href="#">Best Sellers</a>
+        <a href="#">Wishlist ❤️</a>
+    </div>
+</div>
 
-<div class="product-grid" id="product-list">
-    <!-- Products will appear here -->
+<div class="hero">
+    <h1>🔥 Mega Flash Sale 🔥</h1>
+    <p>Up to 75% off – Exclusive Deals on Top Products!</p>
+    <button>Shop Now →</button>
+</div>
+
+<div class="product-grid" id="productGrid">
+    <!-- Products will be loaded by JavaScript -->
 </div>
 
 <footer>
-    <p>© 2025 My AliExpress Store | Affiliate Disclaimer: We earn from qualifying purchases</p>
+    <p>© 2025 HybridStore | Affiliate Disclaimer: We earn a commission on qualifying purchases.</p>
+    <p>Inspired by AliExpress, Amazon, Etsy, Shopify – built with ❤️ using free tools</p>
 </footer>
 
 <script>
-    // Sample products – replace with your own affiliate links and images
+    // ---------- REAL PRODUCTS FROM ALIEXPRESS ----------
     const products = [
         {
-            title: "Wireless Earbuds Bluetooth Headphones",
-            price: "$15.99",
-            image: "https://ae-pic-a1.aliexpress-media.com/kf/Sf1b2c3d4e5f6a7b8c9d0e1f2g3h4i5j6.jpg_200x200.jpg",
-            affiliateLink: "https://s.click.aliexpress.com/e/_example1"
+            title: "CAOSHI Fashion Wedding Ring Set for Women Dazzling Square Zirconia Luxury Lady Accessories Set",
+            price: 308.87,
+            oldPrice: 1029.56,
+            discount: "70%",
+            rating: 4.7,
+            // YAHAN APNI IMAGE URL PASTE KAREIN (Pehla Product)
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/H43fcfe91b54845269e10175e768a871fh.jpg", 
+            affiliateLink: "https://s.click.aliexpress.com/e/_c4lRRhF7",
+            bestSeller: true
         },
         {
-            title: "Smart Watch Fitness Tracker",
-            price: "$22.50",
-            image: "https://ae-pic-a1.aliexpress-media.com/kf/Se7f8g9h0i1j2k3l4m5n6o7p8q9r0s1t2.jpg_200x200.jpg",
-            affiliateLink: "https://s.click.aliexpress.com/e/_example2"
+            title: "New 3 In 1 Fan Air Conditioner Household Mini Air Cooler LED Night Light Portable Humidifier",
+            price: 2806.09,
+            oldPrice: 11194.78,
+            discount: "75%",
+            rating: 4.8,
+            // YAHAN APNI IMAGE URL PASTE KAREIN (Dusra Product)
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/Sc2240d008e3044d4b95145e1ec347732T.jpg", 
+            affiliateLink: "https://s.click.aliexpress.com/e/_c3RQaHx3",
+            bestSeller: false
         }
     ];
 
-    const productContainer = document.getElementById('product-list');
-
-    function displayProducts() {
-        productContainer.innerHTML = '';
-        products.forEach(product => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
-            card.innerHTML = `
-                <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
-                <div class="product-title">${product.title}</div>
-                <div class="price">${product.price}</div>
-                <a href="${product.affiliateLink}" target="_blank" rel="nofollow sponsored" class="buy-btn">Buy Now →</a>
-            `;
-            productContainer.appendChild(card);
-        });
+    function renderStars(rating) {
+        let fullStars = Math.floor(rating);
+        let halfStar = (rating % 1) >= 0.5 ? 1 : 0;
+        let stars = '';
+        for (let i = 0; i < fullStars; i++) stars += '★';
+        if (halfStar) stars += '½';
+        while (stars.length < 5) stars += '☆';
+        return stars;
     }
 
-    displayProducts();
+    const grid = document.getElementById('productGrid');
+
+    products.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+
+        const discountSpan = `<div class="discount-badge">-${p.discount}</div>`;
+        const bestSellerSpan = p.bestSeller ? `<div class="bestseller">🏆 Best Seller</div>` : '';
+
+        card.innerHTML = `
+            ${discountSpan}
+            ${bestSellerSpan}
+            <img class="product-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+            <div class="product-title">${p.title}</div>
+            <div class="stars">${renderStars(p.rating)} (${p.rating})</div>
+            <div class="price">PKR ${p.price.toFixed(2)} <span class="old-price">PKR ${p.oldPrice.toFixed(2)}</span></div>
+            <a href="${p.affiliateLink}" target="_blank" rel="nofollow sponsored" class="buy-btn">Buy Now →</a>
+            <div class="wishlist-heart" onclick="alert('❤️ Saved to wishlist (demo)')">🤍</div>
+        `;
+        grid.appendChild(card);
+    });
 </script>
 </body>
 </html>
