@@ -231,12 +231,15 @@
 </footer>
 
 <script>
+    // ---------- YEH DEBUGGING LINES HAIN (check karne ke liye) ----------
+    console.log("✅ Script chal rahi hai (Script is running)");
+    
     // ---------- REAL PRODUCTS FROM ALIEXPRESS ----------
     const products = [
         {
             title: "CAOSHI Fashion Wedding Ring Set for Women Dazzling Square Zirconia Luxury Lady Accessories Set",
-            price: 1.10,       // Sirf number, $ nahi
-            oldPrice: 3.67,    // Sirf number, $ nahi
+            price: 1.10,       
+            oldPrice: 3.67,    
             discount: "70%",
             rating: 4.7,
             image: "https://ae-pic-a1.aliexpress-media.com/kf/H43fcfe91b54845269e10175e768a871fh.jpg", 
@@ -245,8 +248,8 @@
         },
         {
             title: "New 3 In 1 Fan Air Conditioner Household Mini Air Cooler LED Night Light Portable Humidifier",
-            price: 10.00,      // Sirf number, $ nahi (Sahi kiya)
-            oldPrice: 40.23,   // Sirf number, $ nahi (Sahi kiya)
+            price: 10.00,      
+            oldPrice: 40.23,   
             discount: "75%",
             rating: 4.8,
             image: "https://ae-pic-a1.aliexpress-media.com/kf/Sc2240d008e3044d4b95145e1ec347732T.jpg", 
@@ -266,26 +269,33 @@
     }
 
     const grid = document.getElementById('productGrid');
+    console.log("✅ Grid element mil gaya:", grid); // Yeh check karega ke grid mila ya nahi
 
-    products.forEach(p => {
-        const card = document.createElement('div');
-        card.className = 'product-card';
+    // Agar grid nahi mila toh error dikhao
+    if (!grid) {
+        console.error("❌ Grid nahi mila! (Grid not found)");
+    } else {
+        products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
 
-        const discountSpan = `<div class="discount-badge">-${p.discount}</div>`;
-        const bestSellerSpan = p.bestSeller ? `<div class="bestseller">🏆 Best Seller</div>` : '';
+            const discountSpan = `<div class="discount-badge">-${p.discount}</div>`;
+            const bestSellerSpan = p.bestSeller ? `<div class="bestseller">🏆 Best Seller</div>` : '';
 
-        card.innerHTML = `
-            ${discountSpan}
-            ${bestSellerSpan}
-            <img class="product-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
-            <div class="product-title">${p.title}</div>
-            <div class="stars">${renderStars(p.rating)} (${p.rating})</div>
-            <div class="price">$${p.price.toFixed(2)} <span class="old-price">$${p.oldPrice.toFixed(2)}</span></div>
-            <a href="${p.affiliateLink}" target="_blank" rel="nofollow sponsored" class="buy-btn">Buy Now →</a>
-            <div class="wishlist-heart" onclick="alert('❤️ Saved to wishlist (demo)')">🤍</div>
-        `;
-        grid.appendChild(card);
-    });
+            card.innerHTML = `
+                ${discountSpan}
+                ${bestSellerSpan}
+                <img class="product-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+                <div class="product-title">${p.title}</div>
+                <div class="stars">${renderStars(p.rating)} (${p.rating})</div>
+                <div class="price">$${p.price.toFixed(2)} <span class="old-price">$${p.oldPrice.toFixed(2)}</span></div>
+                <a href="${p.affiliateLink}" target="_blank" rel="nofollow sponsored" class="buy-btn">Buy Now →</a>
+                <div class="wishlist-heart" onclick="alert('❤️ Saved to wishlist (demo)')">🤍</div>
+            `;
+            grid.appendChild(card);
+        });
+        console.log("✅ Products add kar diye gaye! (Products added)");
+    }
 </script>
 </body>
 </html>
