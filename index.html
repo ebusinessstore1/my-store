@@ -282,7 +282,7 @@
             <img class="product-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
             <div class="product-title">${p.title}</div>
             <div class="stars">${renderStars(p.rating)} (${p.rating})</div>
-            <div class="price">PKR ${p.price.toFixed(2)} <span class="old-price">PKR ${p.oldPrice.toFixed(2)}</span></div>
+            <div class="price">$${p.price.toFixed(2)} <span class="old-price">$${p.oldPrice.toFixed(2)}</span></div>
             <a href="${p.affiliateLink}" target="_blank" rel="nofollow sponsored" class="buy-btn">Buy Now →</a>
             <div class="wishlist-heart" onclick="alert('❤️ Saved to wishlist (demo)')">🤍</div>
         `;
