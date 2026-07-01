@@ -46,7 +46,7 @@
             width: 220px;
         }
 
-        /* Hero banner (Shopify style) */
+        /* Hero banner */
         .hero {
             background: linear-gradient(120deg, #ffecd2 0%, #fcb69f 100%);
             text-align: center;
@@ -79,7 +79,24 @@
             margin: auto;
         }
 
-        /* Product card – combines all styles */
+        /* Category Header - Yeh naya hai (row-wise categories ke liye) */
+        .category-header {
+            grid-column: 1 / -1;  /* Yeh poori row le lega */
+            font-size: 28px;
+            font-weight: bold;
+            color: #1e1e2f;
+            background: #f0f0f0;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 6px solid #ff6a00;
+        }
+        /* Pehle category header ke upar margin nahi */
+        .category-header:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Product card */
         .product-card {
             background: white;
             border-radius: 20px;
@@ -93,7 +110,6 @@
             transform: translateY(-6px);
             box-shadow: 0 12px 24px rgba(0,0,0,0.1);
         }
-        /* Hover zoom on image (Shopify) */
         .product-img {
             width: 100%;
             border-radius: 16px;
@@ -102,7 +118,6 @@
         .product-card:hover .product-img {
             transform: scale(1.03);
         }
-        /* Discount badge (AliExpress) */
         .discount-badge {
             position: absolute;
             top: 20px;
@@ -115,7 +130,6 @@
             border-radius: 20px;
             z-index: 2;
         }
-        /* Best seller badge (Amazon) */
         .bestseller {
             position: absolute;
             top: 20px;
@@ -143,13 +157,11 @@
             font-size: 14px;
             margin-left: 8px;
         }
-        /* Star rating (Amazon style) */
         .stars {
             color: #ffb400;
             font-size: 14px;
             margin: 5px 0;
         }
-        /* Heart button (Etsy style) */
         .wishlist-heart {
             position: absolute;
             bottom: 15px;
@@ -217,7 +229,7 @@
 
 <div class="hero">
     <h1>🔥 Mega Flash Sale 🔥</h1>
-    <p>Up to 75% off – Exclusive Deals on Top Products!</p>
+    <p>Up to 85% off – Exclusive Deals on Top Products!</p>
     <button>Shop Now →</button>
 </div>
 
@@ -231,33 +243,93 @@
 </footer>
 
 <script>
-    // ---------- YEH DEBUGGING LINES HAIN (check karne ke liye) ----------
-    console.log("✅ Script chal rahi hai (Script is running)");
-    
-    // ---------- REAL PRODUCTS FROM ALIEXPRESS ----------
+    // ---------- SAB PRODUCTS (7 total) WITH CATEGORIES ----------
     const products = [
+        // ---------- CATEGORY 1: FEATURED PRODUCTS (Pehle wale) ----------
         {
+            category: "Featured Products",
             title: "CAOSHI Fashion Wedding Ring Set for Women Dazzling Square Zirconia Luxury Lady Accessories Set",
-            price: 1.10,       
-            oldPrice: 3.67,    
+            price: 1.10,
+            oldPrice: 3.67,
             discount: "70%",
             rating: 4.7,
-            image: "https://ae-pic-a1.aliexpress-media.com/kf/H43fcfe91b54845269e10175e768a871fh.jpg", 
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/H43fcfe91b54845269e10175e768a871fh.jpg",
             affiliateLink: "https://s.click.aliexpress.com/e/_c4lRRhF7",
             bestSeller: true
         },
         {
+            category: "Featured Products",
             title: "New 3 In 1 Fan Air Conditioner Household Mini Air Cooler LED Night Light Portable Humidifier",
-            price: 10.00,      
-            oldPrice: 40.23,   
+            price: 10.00,
+            oldPrice: 40.23,
             discount: "75%",
             rating: 4.8,
-            image: "https://ae-pic-a1.aliexpress-media.com/kf/Sc2240d008e3044d4b95145e1ec347732T.jpg", 
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/Sc2240d008e3044d4b95145e1ec347732T.jpg",
             affiliateLink: "https://s.click.aliexpress.com/e/_c3RQaHx3",
+            bestSeller: false
+        },
+
+        // ---------- CATEGORY 2: CAR VACUUM CLEANERS (Naye 3) ----------
+        {
+            category: "Car Vacuum Cleaners",
+            title: "CENRR 998000PA Car Vacuum Cleaner Powerful Portable HandHeld Vacuum Cleaner For Car Wireless Robot Car Accessories",
+            price: 42.54,
+            oldPrice: 104.52,
+            discount: "59%",
+            rating: 4.6,
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/S4ce20e43042747acb7e1ffe04dd27037f.jpg",
+            affiliateLink: "https://s.click.aliexpress.com/e/_c2Rz1lUv",
+            bestSeller: true
+        },
+        {
+            category: "Car Vacuum Cleaners",
+            title: "Mini Car Vacuum Cleaner Portable Wireless Hand held Vacuum Cleaner for Home Appliance Powerful Cleaning Machine",
+            price: 31.63,
+            oldPrice: 74.75,
+            discount: "58%",
+            rating: 4.5,
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/Sd3c4425f3a2d48da970a5c85b581c9eae.png",
+            affiliateLink: "https://s.click.aliexpress.com/e/_c4SeRf3n",
+            bestSeller: false
+        },
+        {
+            category: "Car Vacuum Cleaners",
+            title: "SZUK Mini Car Vacuum Cleaner Powerful Portable Handheld Vacuum Cleaner Strong Suction Cleaning Machine",
+            price: 43.98,
+            oldPrice: 99.97,
+            discount: "56%",
+            rating: 4.7,
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/A1d4f031a005040bfbd0a913ce6e408eed.jpg",
+            affiliateLink: "https://s.click.aliexpress.com/e/_c4eJMGUH",
+            bestSeller: false
+        },
+
+        // ---------- CATEGORY 3: GALAXY PROJECTOR LIGHTS (Naye 2) ----------
+        {
+            category: "Galaxy Projector Lights",
+            title: "NEW Aurora Projectors Galaxy Star Projector Northern Light Starry Sky Moon Lamp For Bedroom Decor Bluetooth Music",
+            price: 37.46,
+            oldPrice: 128.67,
+            discount: "71%",
+            rating: 4.8,
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/Sfd8bb5058ded4f6dad8d99ec14e531b9t.jpg",
+            affiliateLink: "https://s.click.aliexpress.com/e/_c3aSR1zL",
+            bestSeller: true
+        },
+        {
+            category: "Galaxy Projector Lights",
+            title: "Astronaut Star Projector Night Light with Remote Control 360° Adjustable Galaxy Nebula Ceiling Lamp for Bedroom",
+            price: 4.45,
+            oldPrice: 30.09,
+            discount: "85%",
+            rating: 4.9,
+            image: "https://ae-pic-a1.aliexpress-media.com/kf/S914fefe73fcc465c83fdd8b7570df726c.jpg",
+            affiliateLink: "https://s.click.aliexpress.com/e/_c31TKYmZ",
             bestSeller: false
         }
     ];
 
+    // Function to show stars
     function renderStars(rating) {
         let fullStars = Math.floor(rating);
         let halfStar = (rating % 1) >= 0.5 ? 1 : 0;
@@ -269,33 +341,37 @@
     }
 
     const grid = document.getElementById('productGrid');
-    console.log("✅ Grid element mil gaya:", grid); // Yeh check karega ke grid mila ya nahi
+    let lastCategory = '';
 
-    // Agar grid nahi mila toh error dikhao
-    if (!grid) {
-        console.error("❌ Grid nahi mila! (Grid not found)");
-    } else {
-        products.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'product-card';
+    products.forEach(p => {
+        // Agar category badal gayi toh naya header add karein
+        if (p.category !== lastCategory) {
+            const header = document.createElement('div');
+            header.className = 'category-header';
+            header.textContent = p.category;
+            grid.appendChild(header);
+            lastCategory = p.category;
+        }
 
-            const discountSpan = `<div class="discount-badge">-${p.discount}</div>`;
-            const bestSellerSpan = p.bestSeller ? `<div class="bestseller">🏆 Best Seller</div>` : '';
+        // Product card banayein
+        const card = document.createElement('div');
+        card.className = 'product-card';
 
-            card.innerHTML = `
-                ${discountSpan}
-                ${bestSellerSpan}
-                <img class="product-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
-                <div class="product-title">${p.title}</div>
-                <div class="stars">${renderStars(p.rating)} (${p.rating})</div>
-                <div class="price">$${p.price.toFixed(2)} <span class="old-price">$${p.oldPrice.toFixed(2)}</span></div>
-                <a href="${p.affiliateLink}" target="_blank" rel="nofollow sponsored" class="buy-btn">Buy Now →</a>
-                <div class="wishlist-heart" onclick="alert('❤️ Saved to wishlist (demo)')">🤍</div>
-            `;
-            grid.appendChild(card);
-        });
-        console.log("✅ Products add kar diye gaye! (Products added)");
-    }
+        const discountSpan = `<div class="discount-badge">-${p.discount}</div>`;
+        const bestSellerSpan = p.bestSeller ? `<div class="bestseller">🏆 Best Seller</div>` : '';
+
+        card.innerHTML = `
+            ${discountSpan}
+            ${bestSellerSpan}
+            <img class="product-img" src="${p.image}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/300x200?text=Image+Not+Found'">
+            <div class="product-title">${p.title}</div>
+            <div class="stars">${renderStars(p.rating)} (${p.rating})</div>
+            <div class="price">$${p.price.toFixed(2)} <span class="old-price">$${p.oldPrice.toFixed(2)}</span></div>
+            <a href="${p.affiliateLink}" target="_blank" rel="nofollow sponsored" class="buy-btn">Buy Now →</a>
+            <div class="wishlist-heart" onclick="alert('❤️ Saved to wishlist (demo)')">🤍</div>
+        `;
+        grid.appendChild(card);
+    });
 </script>
 </body>
 </html>
