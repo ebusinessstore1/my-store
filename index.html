@@ -221,9 +221,9 @@
         <input type="text" placeholder="Search products...">
     </div>
     <div class="nav-links">
-        <a href="#">Deals</a>
-        <a href="#">Best Sellers</a>
-        <a href="#">Wishlist ❤️</a>
+        <a href="featured-products.html">⭐ Featured</a>
+        <a href="car-vacuum-cleaners.html">🧹 Vacuums</a>
+        <a href="galaxy-projectors.html">🌌 Projectors</a>
     </div>
 </div>
 
@@ -346,10 +346,19 @@
 
     products.forEach(p => {
         // Agar category badal gayi toh naya header add karein
-        if (p.category !== lastCategory) {
+              if (p.category !== lastCategory) {
             const header = document.createElement('div');
             header.className = 'category-header';
-            header.textContent = p.category;
+            
+            // Category name ko link mein convert karein
+            const link = document.createElement('a');
+            // Category name se filename banayein (spaces ko hyphen mein convert)
+            const fileName = p.category.toLowerCase().replace(/ /g, '-') + '.html';
+            link.href = fileName;
+            link.textContent = p.category;
+            link.style.cssText = 'color: inherit; text-decoration: none; display: block;';
+            
+            header.appendChild(link);
             grid.appendChild(header);
             lastCategory = p.category;
         }
